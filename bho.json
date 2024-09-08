@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricerca nel Sito</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #searchResults a { display: block; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <input type="text" id="searchInput" placeholder="Cerca nel sito">
+    <button onclick="searchSite()">Cerca</button>
+    <div id="searchResults"></div>
+
+    <script>
+        // Esempio di dati JSON incorporati direttamente
+        const siteData = {
+            "pages": [
+                {
+                    "title": "Home",
+                    "url": "https://sites.google.com/d/1Y7whjKQXZP3pw_CTimGRqbqp9VqZ24Rk/p/1SCoH0sLYv-1Vs7Atug7_cAvURqnEJPoY",
+                    "content": "Benvenuto nella home page del nostro sito."
+                },
+                {
+                    "title": "Contatti",
+                    "url": "https://sites.google.com/d/1Y7whjKQXZP3pw_CTimGRqbqp9VqZ24Rk/p/1SCoH0sLYv-1Vs7Atug7_cAvURqnEJPoY",
+                    "content": "Contattaci tramite il modulo qui sotto."
+                }
+                // Aggiungi altre pagine come necessario
+            ]
+        };
+
+        function searchSite() {
+            const input = document.getElementById("searchInput").value.toLowerCase();
+            const resultsContainer = document.getElementById("searchResults");
+            resultsContainer.innerHTML = "";  // Pulisce i risultati precedenti
+
+            const pages = siteData.pages;
+            let foundResults = false;
+
+            pages.forEach(page => {
+                if (page.content.toLowerCase().includes(input)) {
+                    foundResults = true;
+                    const resultLink = document.createElement("a");
+                    resultLink.href = page.url;
+                    resultLink.textContent = `Trovato in: ${page.title}`;
+                    resultsContainer.appendChild(resultLink);
+                    resultsContainer.appendChild(document.createElement("br"));
+                }
+            });
+
+            if (!foundResults) {
+                resultsContainer.innerHTML = "Nessun risultato trovato.";
+            }
+        }
+    </script>
+</body>
+</html>
+
+
